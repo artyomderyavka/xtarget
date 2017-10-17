@@ -1,0 +1,28 @@
+services:
+#####micro-service clients
+  contentServiceClient:
+    class: FastMicroKernel\Components\ServiceClientsFactory
+    factory: ['FastMicroKernel\Components\ServiceClientsFactory', 'getServiceClient']
+    arguments:
+      - '@=constant("CONTENT_SERVICE_CLIENT_TRANSPORT")'
+      - /content
+
+#####micro-service request builder
+  serviceRequestBuilder:
+    class: FastMicroKernel\Components\ServiceRequestBuilder
+
+##### application factories
+  applicationDtoFactory:
+    class: Target\Factories\DtoFactory
+
+##### domain delivery context factories
+  domainDeliveryDtoFactory:
+    class: Target\Domain\DeliveryContext\Factories\DtoFactory
+
+##### domain delivery context services
+  domainDeliveryTargetService:
+    class: Target\Domain\DeliveryContext\Services\TargetService
+    arguments:
+      - '@domainDeliveryDtoFactory'
+#      - '@contentServiceClient'
+#      - '@serviceRequestBuilder'

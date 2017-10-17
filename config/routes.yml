@@ -1,0 +1,6 @@
+main:
+  method: GET
+  route: /xtarget/getTargets
+  handle:
+    controller: Target\Controllers\TargetController
+    action: getTargets

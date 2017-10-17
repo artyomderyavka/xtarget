@@ -1,0 +1,45 @@
+{
+  "name": "artyomderyavka/xtarget",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Artyom Deryavka",
+      "email": "artyom.deryavka@together.com"
+    },
+    {
+      "name": "Alexander Dunaev",
+      "email": "alexander.dunaev@together.com"
+    }
+  ],
+  "require": {
+    "artyomderyavka/fast-micro-kernel": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Target\\Controllers\\" : "application/controllers/",
+      "Target\\Dto\\" : "application/dto/",
+      "Target\\Dto\\Interfaces\\" : "application/dto/interfaces/",
+      "Target\\Factories\\" : "application/factories/",
+      "Target\\Factories\\Interfaces\\" : "application/factories/interfaces/",
+      "Target\\Domain\\DeliveryContext\\Dto\\" : "domain/deliveryContext/dto/",
+      "Target\\Domain\\DeliveryContext\\Dto\\Interfaces\\" : "domain/deliveryContext/dto/interfaces/",
+      "Target\\Domain\\DeliveryContext\\Factories\\" : "domain/deliveryContext/factories/",
+      "Target\\Domain\\DeliveryContext\\Factories\\Interfaces\\" : "domain/deliveryContext/factories/interfaces/",
+      "Target\\Domain\\DeliveryContext\\Services\\" : "domain/deliveryContext/services/",
+      "Target\\Domain\\DeliveryContext\\Services\\Interfaces\\" : "domain/deliveryContext/services/interfaces/"
+    }
+  },
+  "classmap": [
+    "application/controllers",
+    "application/dto",
+    "application/dto/interfaces",
+    "application/factories",
+    "application/factories/interfaces",
+    "domain/deliveryContext/dto",
+    "domain/deliveryContext/dto/interfaces",
+    "domain/deliveryContext/factories",
+    "domain/deliveryContext/factories/interfaces",
+    "domain/deliveryContext/services",
+    "domain/deliveryContext/services/interfaces"
+  ]
+}
