@@ -15,7 +15,7 @@ use Target\Domain\DeliveryContext\Factories\Interfaces\DtoFactoryInterface;
 
 class DtoFactory implements DtoFactoryInterface
 {
-    public function getPickTargetResponseDto(array $pickTargetResponseData): PickTargetsRequestDtoInterface
+    public function createPickTargetResponseDto(array $pickTargetResponseData): PickTargetsRequestDtoInterface
     {
         return new PickTargetsResponseDto($pickTargetResponseData);
     }

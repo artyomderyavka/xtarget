@@ -11,7 +11,10 @@ namespace Target\Domain\DeliveryContext\Services;
 
 use Target\Domain\DeliveryContext\Dto\Interfaces\PickTargetsRequestDtoInterface;
 use Target\Domain\DeliveryContext\Dto\Interfaces\PickTargetsResponseDtoInterface;
+use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\DtoFactoryInterface;
+use Target\Domain\DeliveryContext\Factories\Interfaces\EntitiesFactoryInterface;
+use Target\Domain\DeliveryContext\Factories\Interfaces\ValueObjectsFactoryInterface;
 use Target\Domain\DeliveryContext\Services\Interfaces\TargetServiceInterface;
 
 class TargetService implements TargetServiceInterface
@@ -20,20 +23,59 @@ class TargetService implements TargetServiceInterface
 
     protected $dtoFactory;
 
-    public function __construct(DtoFactoryInterface $dtoFactory)
+    protected $collectionsFactory;
+
+    protected $entitiesFactory;
+
+    protected $valueObjectsFactory;
+
+    public function __construct(
+        DtoFactoryInterface $dtoFactory,
+        CollectionsFactoryInterface $collectionsFactory,
+        EntitiesFactoryInterface $entitiesFactory,
+        ValueObjectsFactoryInterface $valueObjectsFactory
+    )
     {
         $this->dtoFactory = $dtoFactory;
+        $this->collectionsFactory = $collectionsFactory;
+        $this->entitiesFactory = $entitiesFactory;
+        $this->valueObjectsFactory = $valueObjectsFactory;
     }
 
     public function pickTargets(PickTargetsRequestDtoInterface $pickTargetsRequestDto): PickTargetsResponseDtoInterface
     {
-        $targetsCollection = $this->pickBestTargets($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
+        $targetsCollection = $this->pickBestAdvertisers($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
         var_dump($this->dtoFactory);
         die;
     }
 
-    protected function pickBestTargets(PickTargetsRequestDtoInterface $pickTargetsRequestDto, int $limit = 0)
+    protected function pickBestAdvertisers(PickTargetsRequestDtoInterface $pickTargetsRequestDto, int $limit = 0)
     {
+        $advertisersData = [
+            [
+                'id' => 'ffffffffffffffffeeeeeeeeeeeee1',
+                'name' => 'Google',
+                'status' => 1,
+                'domain' => 'google.com',
+                'targetUrl' => 'https://google.com'
+            ],
+            [
+                'id' => 'ffffffffffffffffeeeeeeeeeeeee2',
+                'name' => 'BeNaughty',
+                'status' => 1,
+                'domain' => 'benaughty.com',
+                'targetUrl' => 'https://benaughty.com'
+            ]
+        ];
+        $advertisersCollection = $this->collectionsFactory->createAdvertisersCollection();
 
+        foreach ($advertisersData as $advertiserData) {
+            $advertiser = $this->entitiesFactory->createAdvertiser($advertiserData);
+            $advertisersCollection->add($advertiser);
+        }
+        var_dump($advertisersCollection); die;
+
+
+        return $targets;
     }
 }

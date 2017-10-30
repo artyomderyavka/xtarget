@@ -18,11 +18,23 @@ services:
 ##### domain delivery context factories
   domainDeliveryDtoFactory:
     class: Target\Domain\DeliveryContext\Factories\DtoFactory
+  domainDeliveryCollectionsFactory:
+    class: Target\Domain\DeliveryContext\Factories\CollectionsFactory
+  domainDeliveryEntitiesFactory:
+    class: Target\Domain\DeliveryContext\Factories\EntitiesFactory
+    arguments:
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryValueObjectsFactory'
+  domainDeliveryValueObjectsFactory:
+    class: Target\Domain\DeliveryContext\Factories\ValueObjectsFactory
 
 ##### domain delivery context services
   domainDeliveryTargetService:
     class: Target\Domain\DeliveryContext\Services\TargetService
     arguments:
       - '@domainDeliveryDtoFactory'
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryEntitiesFactory'
+      - '@domainDeliveryValueObjectsFactory'
 #      - '@contentServiceClient'
 #      - '@serviceRequestBuilder'

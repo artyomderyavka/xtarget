@@ -13,5 +13,5 @@ use Target\Domain\DeliveryContext\Dto\Interfaces\PickTargetsRequestDtoInterface;
 
 interface DtoFactoryInterface
 {
-    public function getPickTargetResponseDto(array $pickTargetResponseData): PickTargetsRequestDtoInterface;
+    public function createPickTargetResponseDto(array $pickTargetResponseData): PickTargetsRequestDtoInterface;
 }
