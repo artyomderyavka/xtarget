@@ -15,6 +15,13 @@ services:
   applicationDtoFactory:
     class: Target\Factories\DtoFactory
 
+##### infrastructure delivery context repositories implementation
+  infrastructureDeliverySitesInMemoryRepository:
+    class: Target\Infrastructure\DeliveryContext\Repositories\SitesInMemoryRepository
+    arguments:
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryEntitiesFactory'
+
 ##### domain delivery context factories
   domainDeliveryDtoFactory:
     class: Target\Domain\DeliveryContext\Factories\DtoFactory
@@ -36,5 +43,6 @@ services:
       - '@domainDeliveryCollectionsFactory'
       - '@domainDeliveryEntitiesFactory'
       - '@domainDeliveryValueObjectsFactory'
+      - '@infrastructureDeliverySitesInMemoryRepository'
 #      - '@contentServiceClient'
 #      - '@serviceRequestBuilder'

@@ -29,10 +29,14 @@
       "Target\\Domain\\DeliveryContext\\Entities\\Interfaces\\" : "domain/deliveryContext/entities/interfaces/",
       "Target\\Domain\\DeliveryContext\\Factories\\" : "domain/deliveryContext/factories/",
       "Target\\Domain\\DeliveryContext\\Factories\\Interfaces\\" : "domain/deliveryContext/factories/interfaces/",
+      "Target\\Domain\\DeliveryContext\\Repositories\\" : "domain/deliveryContext/repositories/",
+      "Target\\Domain\\DeliveryContext\\Repositories\\Interfaces\\" : "domain/deliveryContext/repositories/interfaces/",
       "Target\\Domain\\DeliveryContext\\Services\\" : "domain/deliveryContext/services/",
       "Target\\Domain\\DeliveryContext\\Services\\Interfaces\\" : "domain/deliveryContext/services/interfaces/",
       "Target\\Domain\\DeliveryContext\\ValueObjects\\" : "domain/deliveryContext/valueObjects/",
-      "Target\\Domain\\DeliveryContext\\ValueObjects\\Interfaces\\" : "domain/deliveryContext/valueObjects/interfaces/"
+      "Target\\Domain\\DeliveryContext\\ValueObjects\\Interfaces\\" : "domain/deliveryContext/valueObjects/interfaces/",
+      "Target\\Infrastructure\\DeliveryContext\\Repositories\\" : "infrastructure/deliveryContext/repositories/",
+      "Target\\Infrastructure\\DeliveryContext\\Repositories\\Interfaces\\" : "infrastructure/deliveryContext/repositories/interfaces/"
     }
   },
   "classmap": [
@@ -49,9 +53,13 @@
     "domain/deliveryContext/entities/interfaces",
     "domain/deliveryContext/factories",
     "domain/deliveryContext/factories/interfaces",
+    "domain/deliveryContext/repositories",
+    "domain/deliveryContext/repositories/interfaces",
     "domain/deliveryContext/services",
     "domain/deliveryContext/services/interfaces",
     "domain/deliveryContext/valueObjects",
-    "domain/deliveryContext/valueObjects/interfaces"
+    "domain/deliveryContext/valueObjects/interfaces",
+    "infrastructure/deliveryContext/repositories",
+    "infrastructure/deliveryContext/repositories/interfaces"
   ]
 }

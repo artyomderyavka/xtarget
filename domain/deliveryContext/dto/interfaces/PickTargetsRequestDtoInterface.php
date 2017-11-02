@@ -16,6 +16,6 @@ interface PickTargetsRequestDtoInterface
     public function getPlatform(): string;
     public function getSafeParam(): string;
     public function getScammerStatus(): bool;
-    public function getSourceSiteId(): string;
+    public function getSourceSiteDomain(): string;
     public function getTrafficChannel(): string;
 }

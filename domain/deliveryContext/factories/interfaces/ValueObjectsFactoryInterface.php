@@ -11,6 +11,8 @@ namespace Target\Domain\DeliveryContext\Factories\Interfaces;
 
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\EntityNameInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\EntityStatusInterface;
+use Target\Domain\DeliveryContext\ValueObjects\Interfaces\SiteDomainInterface;
+use Target\Domain\DeliveryContext\ValueObjects\Interfaces\TrafficChannelInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UrlInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
 
@@ -19,6 +21,18 @@ interface ValueObjectsFactoryInterface
     public function createAdvertiserName(?string $name = null): EntityNameInterface;
 
     public function createAdvertiserStatus(?int $status = null): EntityStatusInterface;
+
+    public function createPublisherName(?string $name = null): EntityNameInterface;
+
+    public function createPublisherStatus(?int $status = null): EntityStatusInterface;
+
+    public function createSiteDomain(?string $domain = null): SiteDomainInterface;
+
+    public function createSiteName(?string $name = null): EntityNameInterface;
+
+    public function createSiteNameAbbreviation(?string $abbreviation = null): EntityNameInterface;
+
+    public function createTrafficChannel(?string $trafficChannel = null): TrafficChannelInterface;
 
     public function createUrl(?string $url = null): UrlInterface;
 

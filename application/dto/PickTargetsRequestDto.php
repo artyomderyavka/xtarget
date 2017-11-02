@@ -8,7 +8,7 @@ use Target\Domain\DeliveryContext\Dto\Interfaces\PickTargetsRequestDtoInterface;
 
 class PickTargetsRequestDto implements PickTargetsRequestDtoInterface
 {
-    protected $sourceSiteId;
+    protected $sourceSiteDomain;
     protected $alreadyRegisteredOnSiteIds;
     protected $allowedToRewriteSiteIds;
     protected $trafficChannel;
@@ -23,7 +23,7 @@ class PickTargetsRequestDto implements PickTargetsRequestDtoInterface
 
     public function __construct(array $deliveryRequestData)
     {
-        $this->sourceSiteId = !empty($deliveryRequestData['sourceSite']) ? (string)$deliveryRequestData['sourceSite'] : '';
+        $this->sourceSiteDomain = !empty($deliveryRequestData['sourceSite']) ? (string)$deliveryRequestData['sourceSite'] : '';
         $this->trafficChannel = !empty($deliveryRequestData['trafficChannel']) ? (string)$deliveryRequestData['trafficChannel'] : '';
         $this->country = !empty($deliveryRequestData['country']) ? (string)$deliveryRequestData['country'] : '';
         $this->platform = !empty($deliveryRequestData['platform']) ? (string)$deliveryRequestData['platform'] : '';
@@ -38,50 +38,62 @@ class PickTargetsRequestDto implements PickTargetsRequestDtoInterface
         $this->allowedToRewriteSiteIds = !empty($deliveryRequestData['allowedToRewriteSites'])
             ? explode(';', $deliveryRequestData['allowedToRewriteSites']) : [];
     }
+
     public function getAllowedToRewriteSiteIds(): array
     {
         return $this->allowedToRewriteSiteIds;
     }
+
     public function getAlreadyRegisteredOnSiteIds(): array
     {
         return $this->alreadyRegisteredOnSiteIds;
     }
+
     public function getBlacklistStatus(): bool
     {
         return $this->blacklistStatus;
     }
+
     public function getCountry(): string
     {
         return $this->country;
     }
+
     public function getGender(): string
     {
         return $this->gender;
     }
+
     public function getOrientation(): string
     {
         return $this->orientation;
     }
+
     public function getPaymentStatus(): string
     {
         return $this->paymentStatus;
     }
+
     public function getPlatform(): string
     {
         return $this->platform;
     }
+
     public function getSafeParam(): string
     {
         return $this->safeParam;
     }
+
     public function getScammerStatus(): bool
     {
         return $this->scammerStatus;
     }
-    public function getSourceSiteId(): string
+
+    public function getSourceSiteDomain(): string
     {
-        return $this->sourceSiteId;
+        return $this->sourceSiteDomain;
     }
+
     public function getTrafficChannel(): string
     {
         return $this->trafficChannel;

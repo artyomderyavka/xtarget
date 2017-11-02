@@ -15,6 +15,7 @@ use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterfa
 use Target\Domain\DeliveryContext\Factories\Interfaces\DtoFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\EntitiesFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\ValueObjectsFactoryInterface;
+use Target\Domain\DeliveryContext\Repositories\Interfaces\SitesRepositoryInterface;
 use Target\Domain\DeliveryContext\Services\Interfaces\TargetServiceInterface;
 
 class TargetService implements TargetServiceInterface
@@ -29,23 +30,29 @@ class TargetService implements TargetServiceInterface
 
     protected $valueObjectsFactory;
 
+    protected $sitesRepository;
+
     public function __construct(
         DtoFactoryInterface $dtoFactory,
         CollectionsFactoryInterface $collectionsFactory,
         EntitiesFactoryInterface $entitiesFactory,
-        ValueObjectsFactoryInterface $valueObjectsFactory
+        ValueObjectsFactoryInterface $valueObjectsFactory,
+        SitesRepositoryInterface $sitesRepository
     )
     {
         $this->dtoFactory = $dtoFactory;
         $this->collectionsFactory = $collectionsFactory;
         $this->entitiesFactory = $entitiesFactory;
         $this->valueObjectsFactory = $valueObjectsFactory;
+        $this->sitesRepository = $sitesRepository;
     }
 
     public function pickTargets(PickTargetsRequestDtoInterface $pickTargetsRequestDto): PickTargetsResponseDtoInterface
     {
-        $targetsCollection = $this->pickBestAdvertisers($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
-        var_dump($this->dtoFactory);
+        $sourceSite = $this->sitesRepository
+            ->findByDomain($this->valueObjectsFactory->createSiteDomain($pickTargetsRequestDto->getSourceSiteDomain()));
+        //$advertisersCollection = $this->pickBestAdvertisers($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
+        var_dump($sourceSite);
         die;
     }
 
