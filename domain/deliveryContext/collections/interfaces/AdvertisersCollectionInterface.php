@@ -15,5 +15,7 @@ interface AdvertisersCollectionInterface
 {
     public function add(AdvertiserInterface $advertiser): void;
 
+    public function contains(string $advertiserId): bool;
+
     public function get(string $advertiserId): AdvertiserInterface;
 }

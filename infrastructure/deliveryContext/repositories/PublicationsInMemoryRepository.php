@@ -61,8 +61,6 @@ class PublicationsInMemoryRepository implements PublicationsRepositoryInterface
         ?EntityStatusInterface $status = null
     ): PublicationsCollection
     {
-        $foundPublicationsInfo = null;
-
         $publicationsCollection = $this->collectionsFactory->createPublicationsCollection();
 
         foreach ($this->publicationsInMemory as $publicationInfo) {

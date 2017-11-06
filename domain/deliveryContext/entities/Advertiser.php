@@ -20,16 +20,24 @@ use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
 class Advertiser implements AdvertiserInterface
 {
     protected $id;
+
     protected $limitationBundleIds;
+
     protected $name;
+
+    protected $siteId;
+
     protected $status;
+
     protected $targetUrl;
+
     protected $trafficChannel;
 
     public function __construct(
         UUIDInterface $id,
         UUIDsCollectionInterface $limitationBundleIds,
         EntityNameInterface $name,
+        UUIDInterface $siteId,
         EntityStatusInterface $status,
         UrlInterface $targetUrl,
         TrafficChannelInterface $trafficChannel
@@ -37,6 +45,7 @@ class Advertiser implements AdvertiserInterface
         $this->id = $id;
         $this->limitationBundleIds = $limitationBundleIds;
         $this->name = $name;
+        $this->siteId = $siteId;
         $this->status = $status;
         $this->targetUrl = $targetUrl;
         $this->trafficChannel = $trafficChannel;
@@ -47,7 +56,7 @@ class Advertiser implements AdvertiserInterface
         return $this->id;
     }
 
-    public function getLimitationBundleId(): UUIDsCollectionInterface
+    public function getLimitationBundleIds(): UUIDsCollectionInterface
     {
         return $this->limitationBundleIds;
     }
@@ -55,6 +64,11 @@ class Advertiser implements AdvertiserInterface
     public function getName(): EntityNameInterface
     {
         return $this->name;
+    }
+
+    public function getSiteId(): UUIDInterface
+    {
+        return $this->siteId;
     }
 
     public function getStatus(): EntityStatusInterface

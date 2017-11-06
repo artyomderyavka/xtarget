@@ -21,6 +21,11 @@ class AdvertisersCollection extends AbstractCollection implements AdvertisersCol
         }
     }
 
+    public function contains(string $advertiserId): bool
+    {
+        return isset($this->items[$advertiserId]);
+    }
+
     public function get(string $advertiserId): AdvertiserInterface
     {
         if (isset($this->items[$advertiserId])) {

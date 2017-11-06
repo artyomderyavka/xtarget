@@ -40,6 +40,7 @@ class EntitiesFactory implements EntitiesFactoryInterface
     {
         $advertiserId = $advertiserData['id'] ?? null;
         $advertiserName = $advertiserData['name'] ?? null;
+        $advertiserSiteId = $advertiserData['siteId'] ?? null;
         $advertiserStatus = $advertiserData['status'] ?? null;
         $advertiserUrl = $advertiserData['targetUrl'] ?? null;
         $trafficChannel = $advertiserData['trafficChannel'] ?? null;
@@ -56,6 +57,7 @@ class EntitiesFactory implements EntitiesFactoryInterface
             $this->valueObjectsFactory->createUUID($advertiserId),
             $limitationBundleUUIDsCollection,
             $this->valueObjectsFactory->createAdvertiserName($advertiserName),
+            $this->valueObjectsFactory->createUUID($advertiserSiteId),
             $this->valueObjectsFactory->createAdvertiserStatus($advertiserStatus),
             $this->valueObjectsFactory->createUrl($advertiserUrl),
             $this->valueObjectsFactory->createTrafficChannel($trafficChannel)

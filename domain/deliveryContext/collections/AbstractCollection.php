@@ -9,26 +9,31 @@
 namespace Target\Domain\DeliveryContext\Collections;
 
 
-class AbstractCollection implements \Iterator
+class AbstractCollection implements \Iterator, \Countable
 {
-    protected $position = 0;
     protected $items = [];
-    public function __construct() {
-        $this->position = 0;
-    }
+
     public function rewind() {
-        $this->position = 0;
+        return reset($this->items);
     }
+
     public function current() {
-        return $this->items[$this->position];
+        return current($this->items);
     }
+
     public function key() {
-        return $this->position;
+        return key($this->items);
     }
+
     public function next() {
-        ++$this->position;
+       return next($this->items);
     }
+
     public function valid() {
-        return isset($this->items[$this->position]);
+        return null !== key($this->items);
+    }
+
+    public function count() {
+        return count($this->items);
     }
 }

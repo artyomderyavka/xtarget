@@ -9,8 +9,9 @@
 namespace Target\Domain\DeliveryContext\Collections;
 
 
-use Target\Domain\DeliveryContext\Collections\Interfaces\UUIDInterface;
+
 use Target\Domain\DeliveryContext\Collections\Interfaces\UUIDsCollectionInterface;
+use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
 
 class UUIDsCollection extends AbstractCollection implements UUIDsCollectionInterface
 {
@@ -19,6 +20,11 @@ class UUIDsCollection extends AbstractCollection implements UUIDsCollectionInter
         if (!isset($this->items[$uuid->getValue()])) {
             $this->items[$uuid->getValue()] = $uuid->getValue();
         }
+    }
+
+    public function contains(string $uuid): bool
+    {
+        return isset($this->items[$uuid]);
     }
 
     public function get(string $uuid): UUIDInterface

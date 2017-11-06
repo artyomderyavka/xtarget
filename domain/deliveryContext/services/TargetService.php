@@ -15,6 +15,7 @@ use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterfa
 use Target\Domain\DeliveryContext\Factories\Interfaces\DtoFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\EntitiesFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\ValueObjectsFactoryInterface;
+use Target\Domain\DeliveryContext\Repositories\Interfaces\AdvertisersRepositoryInterface;
 use Target\Domain\DeliveryContext\Repositories\Interfaces\PublicationsRepositoryInterface;
 use Target\Domain\DeliveryContext\Repositories\Interfaces\PublishersRepositoryInterface;
 use Target\Domain\DeliveryContext\Repositories\Interfaces\SitesRepositoryInterface;
@@ -25,6 +26,8 @@ use Target\Domain\DeliveryContext\ValueObjects\PublicationStatus;
 class TargetService implements TargetServiceInterface
 {
     const RESPONSE_TARGETS_AMOUNT = 5;
+
+    protected $advertisersRepository;
 
     protected $collectionsFactory;
 
@@ -41,6 +44,7 @@ class TargetService implements TargetServiceInterface
     protected $valueObjectsFactory;
 
     public function __construct(
+        AdvertisersRepositoryInterface $advertisersRepository,
         CollectionsFactoryInterface $collectionsFactory,
         DtoFactoryInterface $dtoFactory,
         EntitiesFactoryInterface $entitiesFactory,
@@ -50,6 +54,7 @@ class TargetService implements TargetServiceInterface
         ValueObjectsFactoryInterface $valueObjectsFactory
     )
     {
+        $this->advertisersRepository = $advertisersRepository;
         $this->collectionsFactory = $collectionsFactory;
         $this->dtoFactory = $dtoFactory;
         $this->entitiesFactory = $entitiesFactory;
@@ -76,15 +81,35 @@ class TargetService implements TargetServiceInterface
                 $trafficChannel,
                 $this->valueObjectsFactory->createPublisherStatus(1)
             );
-
+        if (is_null($publisher)) {
+            echo "PUBLISHER NOT FOUND"; die;
+        }
         $publications = $this->publicationsRepository
             ->findByPublisherIdAndSegmentId(
                 $publisher->getId(),
                 $segmentId,
                 $this->valueObjectsFactory->createPublicationStatus(1)
             );
+        if (!$publications->count()) {
+            echo "PUBLICATION FOR PUBLISHER AND SEGMENT NOT FOUND"; die;
+        }
+
+        $advertiserIdsCollection = $this->collectionsFactory->createUUIDsCollection();
+        foreach ($publications as $publication) {
+            $advertiserIdsCollection->add($publication->getAdvertiserId());
+        }
+        $advertisers = $this->advertisersRepository->findByIds($advertiserIdsCollection);
+
         //$advertisersCollection = $this->pickBestAdvertisers($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
-        var_dump($sourceSite, $publisher, $segmentId, $publications);
+        var_dump(
+            $sourceSite,
+            $publisher,
+            $segmentId,
+            $publications,
+            $publications->count(),
+            $advertiserIdsCollection,
+            $advertisers
+        );
         die;
     }
 

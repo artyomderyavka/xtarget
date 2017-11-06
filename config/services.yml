@@ -16,8 +16,8 @@ services:
     class: Target\Factories\DtoFactory
 
 ##### infrastructure delivery context repositories implementation
-  infrastructureDeliverySitesInMemoryRepository:
-    class: Target\Infrastructure\DeliveryContext\Repositories\SitesInMemoryRepository
+  infrastructureDeliveryAdvertisersInMemoryRepository:
+    class: Target\Infrastructure\DeliveryContext\Repositories\AdvertisersInMemoryRepository
     arguments:
       - '@domainDeliveryCollectionsFactory'
       - '@domainDeliveryEntitiesFactory'
@@ -28,6 +28,11 @@ services:
       - '@domainDeliveryEntitiesFactory'
   infrastructureDeliveryPublishersInMemoryRepository:
     class: Target\Infrastructure\DeliveryContext\Repositories\PublishersInMemoryRepository
+    arguments:
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryEntitiesFactory'
+  infrastructureDeliverySitesInMemoryRepository:
+    class: Target\Infrastructure\DeliveryContext\Repositories\SitesInMemoryRepository
     arguments:
       - '@domainDeliveryCollectionsFactory'
       - '@domainDeliveryEntitiesFactory'
@@ -49,6 +54,7 @@ services:
   domainDeliveryTargetService:
     class: Target\Domain\DeliveryContext\Services\TargetService
     arguments:
+      - '@infrastructureDeliveryAdvertisersInMemoryRepository'
       - '@domainDeliveryCollectionsFactory'
       - '@domainDeliveryDtoFactory'
       - '@domainDeliveryEntitiesFactory'

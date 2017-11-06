@@ -20,9 +20,11 @@ interface AdvertiserInterface
 {
     public function getId(): UUIDInterface;
 
-    public function getLimitationBundleId(): UUIDsCollectionInterface;
+    public function getLimitationBundleIds(): UUIDsCollectionInterface;
 
     public function getName(): EntityNameInterface;
+
+    public function getSiteId(): UUIDInterface;
 
     public function getStatus(): EntityStatusInterface;
 
