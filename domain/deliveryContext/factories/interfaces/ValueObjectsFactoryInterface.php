@@ -22,6 +22,8 @@ interface ValueObjectsFactoryInterface
 
     public function createAdvertiserStatus(?int $status = null): EntityStatusInterface;
 
+    public function createPublicationStatus(?int $status = null): EntityStatusInterface;
+
     public function createPublisherName(?string $name = null): EntityNameInterface;
 
     public function createPublisherStatus(?int $status = null): EntityStatusInterface;

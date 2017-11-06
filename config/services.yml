@@ -21,6 +21,16 @@ services:
     arguments:
       - '@domainDeliveryCollectionsFactory'
       - '@domainDeliveryEntitiesFactory'
+  infrastructureDeliveryPublicationsInMemoryRepository:
+    class: Target\Infrastructure\DeliveryContext\Repositories\PublicationsInMemoryRepository
+    arguments:
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryEntitiesFactory'
+  infrastructureDeliveryPublishersInMemoryRepository:
+    class: Target\Infrastructure\DeliveryContext\Repositories\PublishersInMemoryRepository
+    arguments:
+      - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryEntitiesFactory'
 
 ##### domain delivery context factories
   domainDeliveryDtoFactory:
@@ -39,10 +49,12 @@ services:
   domainDeliveryTargetService:
     class: Target\Domain\DeliveryContext\Services\TargetService
     arguments:
-      - '@domainDeliveryDtoFactory'
       - '@domainDeliveryCollectionsFactory'
+      - '@domainDeliveryDtoFactory'
       - '@domainDeliveryEntitiesFactory'
-      - '@domainDeliveryValueObjectsFactory'
+      - '@infrastructureDeliveryPublicationsInMemoryRepository'
+      - '@infrastructureDeliveryPublishersInMemoryRepository'
       - '@infrastructureDeliverySitesInMemoryRepository'
+      - '@domainDeliveryValueObjectsFactory'
 #      - '@contentServiceClient'
 #      - '@serviceRequestBuilder'

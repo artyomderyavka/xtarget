@@ -15,5 +15,5 @@ interface SitesCollectionInterface
 {
     public function add(SiteInterface $site): void;
 
-    public function get(string $site): SiteInterface;
+    public function get(string $siteId): SiteInterface;
 }

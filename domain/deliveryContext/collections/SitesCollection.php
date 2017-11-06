@@ -21,10 +21,10 @@ class SitesCollection extends AbstractCollection implements SitesCollectionInter
         }
     }
 
-    public function get(string $site): SiteInterface
+    public function get(string $siteId): SiteInterface
     {
-        if (isset($this->items[$site])) {
-            return $this->items[$site];
+        if (isset($this->items[$siteId])) {
+            return $this->items[$siteId];
         }
     }
 }

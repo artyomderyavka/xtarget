@@ -10,21 +10,23 @@ namespace Target\Domain\DeliveryContext\Entities;
 
 
 use Target\Domain\DeliveryContext\Entities\Interfaces\PublisherInterface;
-use Target\Domain\DeliveryContext\Entities\Interfaces\UUIDInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\EntityNameInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\EntityStatusInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\TrafficChannelInterface;
+use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
 
 class Publisher implements PublisherInterface
 {
     protected $id;
     protected $name;
+    protected $siteId;
     protected $status;
     protected $trafficChannel;
 
     public function __construct(
         UUIDInterface $id,
         EntityNameInterface $name,
+        UUIDInterface $siteId,
         EntityStatusInterface $status,
         TrafficChannelInterface $trafficChannel
     ) {
@@ -32,6 +34,7 @@ class Publisher implements PublisherInterface
         $this->name = $name;
         $this->status = $status;
         $this->trafficChannel = $trafficChannel;
+        $this->siteId = $siteId;
     }
 
     public function getId(): UUIDInterface
@@ -42,6 +45,11 @@ class Publisher implements PublisherInterface
     public function getName(): EntityNameInterface
     {
         return $this->name;
+    }
+
+    public function getSiteId(): UUIDInterface
+    {
+        return $this->siteId;
     }
 
     public function getStatus(): EntityStatusInterface

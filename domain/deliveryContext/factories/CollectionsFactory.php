@@ -11,8 +11,10 @@ namespace Target\Domain\DeliveryContext\Factories;
 
 use Target\Domain\DeliveryContext\Collections\AdvertisersCollection;
 use Target\Domain\DeliveryContext\Collections\Interfaces\AdvertisersCollectionInterface;
+use Target\Domain\DeliveryContext\Collections\Interfaces\PublicationsCollectionInterface;
 use Target\Domain\DeliveryContext\Collections\Interfaces\SitesCollectionInterface;
 use Target\Domain\DeliveryContext\Collections\Interfaces\UUIDsCollectionInterface;
+use Target\Domain\DeliveryContext\Collections\PublicationsCollection;
 use Target\Domain\DeliveryContext\Collections\SitesCollection;
 use Target\Domain\DeliveryContext\Collections\UUIDsCollection;
 use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterface;
@@ -24,13 +26,18 @@ class CollectionsFactory implements CollectionsFactoryInterface
         return new AdvertisersCollection();
     }
 
-    public function createUUIDsCollection(): UUIDsCollectionInterface
+    public function createPublicationsCollection(): PublicationsCollectionInterface
     {
-        return new UUIDsCollection();
+        return new PublicationsCollection();
     }
 
     public function createSitesCollection(): SitesCollectionInterface
     {
         return new SitesCollection();
+    }
+
+    public function createUUIDsCollection(): UUIDsCollectionInterface
+    {
+        return new UUIDsCollection();
     }
 }

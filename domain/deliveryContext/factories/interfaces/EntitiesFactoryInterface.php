@@ -10,12 +10,15 @@ namespace Target\Domain\DeliveryContext\Factories\Interfaces;
 
 
 use Target\Domain\DeliveryContext\Entities\Interfaces\AdvertiserInterface;
+use Target\Domain\DeliveryContext\Entities\Interfaces\PublicationInterface;
 use Target\Domain\DeliveryContext\Entities\Interfaces\PublisherInterface;
 use Target\Domain\DeliveryContext\Entities\Interfaces\SiteInterface;
 
 interface EntitiesFactoryInterface
 {
     public function createAdvertiser(array $advertiserData): AdvertiserInterface;
+
+    public function createPublication(array $publicationData): PublicationInterface;
 
     public function createPublisher(array $publisherData): PublisherInterface;
 

@@ -18,6 +18,7 @@ use Target\Domain\DeliveryContext\ValueObjects\Interfaces\SiteDomainInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\TrafficChannelInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UrlInterface;
 use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
+use Target\Domain\DeliveryContext\ValueObjects\PublicationStatus;
 use Target\Domain\DeliveryContext\ValueObjects\PublisherName;
 use Target\Domain\DeliveryContext\ValueObjects\PublisherStatus;
 use Target\Domain\DeliveryContext\ValueObjects\SiteDomain;
@@ -37,6 +38,11 @@ class ValueObjectsFactory implements ValueObjectsFactoryInterface
     public function createAdvertiserStatus(?int $status = null): EntityStatusInterface
     {
         return new AdvertiserStatus($status);
+    }
+
+    public function createPublicationStatus(?int $status = null): EntityStatusInterface
+    {
+        return new PublicationStatus($status);
     }
 
     public function createPublisherName(?string $name = null): EntityNameInterface

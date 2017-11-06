@@ -15,45 +15,82 @@ use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterfa
 use Target\Domain\DeliveryContext\Factories\Interfaces\DtoFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\EntitiesFactoryInterface;
 use Target\Domain\DeliveryContext\Factories\Interfaces\ValueObjectsFactoryInterface;
+use Target\Domain\DeliveryContext\Repositories\Interfaces\PublicationsRepositoryInterface;
+use Target\Domain\DeliveryContext\Repositories\Interfaces\PublishersRepositoryInterface;
 use Target\Domain\DeliveryContext\Repositories\Interfaces\SitesRepositoryInterface;
 use Target\Domain\DeliveryContext\Services\Interfaces\TargetServiceInterface;
+use Target\Domain\DeliveryContext\ValueObjects\Interfaces\UUIDInterface;
+use Target\Domain\DeliveryContext\ValueObjects\PublicationStatus;
 
 class TargetService implements TargetServiceInterface
 {
     const RESPONSE_TARGETS_AMOUNT = 5;
 
-    protected $dtoFactory;
-
     protected $collectionsFactory;
+
+    protected $dtoFactory;
 
     protected $entitiesFactory;
 
-    protected $valueObjectsFactory;
+    protected $publicationsRepository;
+
+    protected $publishersRepository;
 
     protected $sitesRepository;
 
+    protected $valueObjectsFactory;
+
     public function __construct(
-        DtoFactoryInterface $dtoFactory,
         CollectionsFactoryInterface $collectionsFactory,
+        DtoFactoryInterface $dtoFactory,
         EntitiesFactoryInterface $entitiesFactory,
-        ValueObjectsFactoryInterface $valueObjectsFactory,
-        SitesRepositoryInterface $sitesRepository
+        PublicationsRepositoryInterface $publicationsRepository,
+        PublishersRepositoryInterface $publishersRepository,
+        SitesRepositoryInterface $sitesRepository,
+        ValueObjectsFactoryInterface $valueObjectsFactory
     )
     {
-        $this->dtoFactory = $dtoFactory;
         $this->collectionsFactory = $collectionsFactory;
+        $this->dtoFactory = $dtoFactory;
         $this->entitiesFactory = $entitiesFactory;
-        $this->valueObjectsFactory = $valueObjectsFactory;
+        $this->publicationsRepository = $publicationsRepository;
+        $this->publishersRepository = $publishersRepository;
         $this->sitesRepository = $sitesRepository;
+        $this->valueObjectsFactory = $valueObjectsFactory;
+
     }
 
     public function pickTargets(PickTargetsRequestDtoInterface $pickTargetsRequestDto): PickTargetsResponseDtoInterface
     {
-        $sourceSite = $this->sitesRepository
-            ->findByDomain($this->valueObjectsFactory->createSiteDomain($pickTargetsRequestDto->getSourceSiteDomain()));
+        $sourceSiteDomain = $this->valueObjectsFactory->createSiteDomain($pickTargetsRequestDto->getSourceSiteDomain());
+        $trafficChannel = $this->valueObjectsFactory->createTrafficChannel($pickTargetsRequestDto->getTrafficChannel());
+        $segmentId = $this->getSegmentId($pickTargetsRequestDto);
+
+        $sourceSite = $this->sitesRepository->findByDomain($sourceSiteDomain);
+        if (is_null($sourceSite)) {
+            echo "SOURCE SITE NOT FOUND"; die;
+        }
+        $publisher = $this->publishersRepository
+            ->findBySiteAndTrafficChannel(
+                $sourceSite,
+                $trafficChannel,
+                $this->valueObjectsFactory->createPublisherStatus(1)
+            );
+
+        $publications = $this->publicationsRepository
+            ->findByPublisherIdAndSegmentId(
+                $publisher->getId(),
+                $segmentId,
+                $this->valueObjectsFactory->createPublicationStatus(1)
+            );
         //$advertisersCollection = $this->pickBestAdvertisers($pickTargetsRequestDto, self::RESPONSE_TARGETS_AMOUNT);
-        var_dump($sourceSite);
+        var_dump($sourceSite, $publisher, $segmentId, $publications);
         die;
+    }
+
+    protected function getSegmentId(PickTargetsRequestDtoInterface $pickTargetsRequestDto): ?UUIDInterface
+    {
+        return $this->valueObjectsFactory->createUUID('11111111111111111111111111111111');
     }
 
     protected function pickBestAdvertisers(PickTargetsRequestDtoInterface $pickTargetsRequestDto, int $limit = 0)

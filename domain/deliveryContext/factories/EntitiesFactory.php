@@ -11,8 +11,10 @@ namespace Target\Domain\DeliveryContext\Factories;
 
 use Target\Domain\DeliveryContext\Entities\Advertiser;
 use Target\Domain\DeliveryContext\Entities\Interfaces\AdvertiserInterface;
+use Target\Domain\DeliveryContext\Entities\Interfaces\PublicationInterface;
 use Target\Domain\DeliveryContext\Entities\Interfaces\PublisherInterface;
 use Target\Domain\DeliveryContext\Entities\Interfaces\SiteInterface;
+use Target\Domain\DeliveryContext\Entities\Publication;
 use Target\Domain\DeliveryContext\Entities\Publisher;
 use Target\Domain\DeliveryContext\Entities\Site;
 use Target\Domain\DeliveryContext\Factories\Interfaces\CollectionsFactoryInterface;
@@ -62,16 +64,37 @@ class EntitiesFactory implements EntitiesFactoryInterface
         return $advertiser;
     }
 
+    public function createPublication(array $publicationData): PublicationInterface
+    {
+        $id = $publicationData['id'] ?? null;
+        $advertiserId = $publicationData['advertiserId'] ?? null;
+        $publisherId = $publicationData['publisherId'] ?? null;
+        $segmentId = $publicationData['segmentId'] ?? null;
+        $status = $publicationData['status'] ?? null;
+
+        $publication =  new Publication(
+            $this->valueObjectsFactory->createUUID($id),
+            $this->valueObjectsFactory->createUUID($advertiserId),
+            $this->valueObjectsFactory->createUUID($publisherId),
+            $this->valueObjectsFactory->createUUID($segmentId),
+            $this->valueObjectsFactory->createPublicationStatus($status)
+        );
+
+        return $publication;
+    }
+
     public function createPublisher(array $publisherData): PublisherInterface
     {
         $publisherId = $publisherData['id'] ?? null;
         $publisherName = $publisherData['name'] ?? null;
+        $publisherSiteId = $publisherData['siteId'] ?? null;
         $publisherStatus = $publisherData['status'] ?? null;
         $publisherChannel = $publisherData['trafficChannel'] ?? null;
 
         $advertiser = new Publisher(
             $this->valueObjectsFactory->createUUID($publisherId),
             $this->valueObjectsFactory->createPublisherName($publisherName),
+            $this->valueObjectsFactory->createUUID($publisherSiteId),
             $this->valueObjectsFactory->createPublisherStatus($publisherStatus),
             $this->valueObjectsFactory->createTrafficChannel($publisherChannel)
         );
